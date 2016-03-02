@@ -12,6 +12,7 @@ gem 'puma'
 gem 'devise'
 gem 'quiet_assets'
 gem 'paperclip'
+gem 'cancancan', '~> 1.10'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
