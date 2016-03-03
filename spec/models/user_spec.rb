@@ -60,4 +60,11 @@ RSpec.describe User, type: :model do
     expect(@user1.save).to be(false)
   end
 
+  it "sign up should be valid" do
+    @user1.username = "user1"
+    expect(@user1.save).to be(true)
+    @user2.username = "user2"
+    expect(@user2.save).to be(true)
+  end
+
 end
