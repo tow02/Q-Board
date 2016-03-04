@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Question:</strong>
+  <%= @answer.question %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @answer.user %>
+</p>
+
+<p>
+  <strong>Content:</strong>
+  <%= @answer.content %>
+</p>
+
+<p>
+  <strong>Total vote:</strong>
+  <%= @answer.total_vote %>
+</p>
+
+<p>
+  <strong>Is accepted:</strong>
+  <%= @answer.is_accepted %>
+</p>
+
+<%= link_to 'Edit', edit_answer_path(@answer) %> |
+<%= link_to 'Back', answers_path %>
