@@ -6,11 +6,8 @@
   <thead>
     <tr>
       <th>User</th>
-      <th>Room subject</th>
+      <th>Room</th>
       <th>Title</th>
-      <th>Content</th>
-      <th>Total vote</th>
-      <th>Total star</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -19,11 +16,8 @@
     <% @questions.each do |question| %>
       <tr>
         <td><%= question.user %></td>
-        <td><%= question.room_subject %></td>
+        <td><%= question.room %></td>
         <td><%= question.title %></td>
-        <td><%= question.content %></td>
-        <td><%= question.total_vote %></td>
-        <td><%= question.total_star %></td>
         <td><%= link_to 'Show', question %></td>
         <td><%= link_to 'Edit', edit_question_path(question) %></td>
         <td><%= link_to 'Destroy', question, method: :delete, data: { confirm: 'Are you sure?' } %></td>

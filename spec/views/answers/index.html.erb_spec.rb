@@ -7,14 +7,14 @@ RSpec.describe "answers/index", type: :view do
         :question => nil,
         :user => nil,
         :content => "MyText",
-        :total_vote => 1,
+        :is_question => false,
         :is_accepted => false
       ),
       Answer.create!(
         :question => nil,
         :user => nil,
         :content => "MyText",
-        :total_vote => 1,
+        :is_question => false,
         :is_accepted => false
       )
     ])
@@ -25,7 +25,7 @@ RSpec.describe "answers/index", type: :view do
     assert_select "tr>td", :text => nil.to_s, :count => 2
     assert_select "tr>td", :text => nil.to_s, :count => 2
     assert_select "tr>td", :text => "MyText".to_s, :count => 2
-    assert_select "tr>td", :text => 1.to_s, :count => 2
+    assert_select "tr>td", :text => false.to_s, :count => 2
     assert_select "tr>td", :text => false.to_s, :count => 2
   end
 end

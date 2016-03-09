@@ -11,13 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160304101943) do
+ActiveRecord::Schema.define(version: 20160309070942) do
+
+  create_table "answer_tags", force: :cascade do |t|
+    t.integer  "answer_id"
+    t.integer  "tag_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "answer_tags", ["answer_id"], name: "index_answer_tags_on_answer_id"
+  add_index "answer_tags", ["tag_id"], name: "index_answer_tags_on_tag_id"
 
   create_table "answers", force: :cascade do |t|
     t.integer  "question_id"
     t.integer  "user_id"
     t.text     "content"
-    t.integer  "total_vote"
+    t.boolean  "is_question"
     t.boolean  "is_accepted"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
@@ -27,52 +37,35 @@ ActiveRecord::Schema.define(version: 20160304101943) do
   add_index "answers", ["user_id"], name: "index_answers_on_user_id"
 
   create_table "comments", force: :cascade do |t|
-    t.integer  "question_id"
     t.integer  "answer_id"
     t.integer  "user_id"
     t.text     "content"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_index "comments", ["answer_id"], name: "index_comments_on_answer_id"
-  add_index "comments", ["question_id"], name: "index_comments_on_question_id"
   add_index "comments", ["user_id"], name: "index_comments_on_user_id"
 
   create_table "images", force: :cascade do |t|
     t.integer  "user_id"
-    t.integer  "question_id"
     t.integer  "answer_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_index "images", ["answer_id"], name: "index_images_on_answer_id"
-  add_index "images", ["question_id"], name: "index_images_on_question_id"
   add_index "images", ["user_id"], name: "index_images_on_user_id"
-
-  create_table "question_tags", force: :cascade do |t|
-    t.integer  "question_id"
-    t.integer  "tag_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
-
-  add_index "question_tags", ["question_id"], name: "index_question_tags_on_question_id"
-  add_index "question_tags", ["tag_id"], name: "index_question_tags_on_tag_id"
 
   create_table "questions", force: :cascade do |t|
     t.integer  "user_id"
-    t.integer  "room_subject_id"
+    t.integer  "room_id"
     t.text     "title"
-    t.text     "content"
-    t.integer  "total_vote"
-    t.integer  "total_star"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  add_index "questions", ["room_subject_id"], name: "index_questions_on_room_subject_id"
+  add_index "questions", ["room_id"], name: "index_questions_on_room_id"
   add_index "questions", ["user_id"], name: "index_questions_on_user_id"
 
   create_table "roles", force: :cascade do |t|
@@ -82,7 +75,7 @@ ActiveRecord::Schema.define(version: 20160304101943) do
     t.datetime "updated_at",  null: false
   end
 
-  create_table "room_subjects", force: :cascade do |t|
+  create_table "rooms", force: :cascade do |t|
     t.text     "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -93,6 +86,16 @@ ActiveRecord::Schema.define(version: 20160304101943) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "user_roles", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "role_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "user_roles", ["role_id"], name: "index_user_roles_on_role_id"
+  add_index "user_roles", ["user_id"], name: "index_user_roles_on_user_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -108,11 +111,20 @@ ActiveRecord::Schema.define(version: 20160304101943) do
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.text     "username"
-    t.integer  "role_id"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-  add_index "users", ["role_id"], name: "index_users_on_role_id"
+
+  create_table "votes", force: :cascade do |t|
+    t.integer  "answer_id"
+    t.integer  "user_id"
+    t.integer  "vote_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "votes", ["answer_id"], name: "index_votes_on_answer_id"
+  add_index "votes", ["user_id"], name: "index_votes_on_user_id"
 
 end

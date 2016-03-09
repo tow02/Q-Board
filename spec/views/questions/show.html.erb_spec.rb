@@ -4,11 +4,8 @@ RSpec.describe "questions/show", type: :view do
   before(:each) do
     @question = assign(:question, Question.create!(
       :user => nil,
-      :room_subject => nil,
-      :title => "MyText",
-      :content => "MyText",
-      :total_vote => 1,
-      :total_star => 2
+      :room => nil,
+      :title => "MyText"
     ))
   end
 
@@ -17,8 +14,5 @@ RSpec.describe "questions/show", type: :view do
     expect(rendered).to match(//)
     expect(rendered).to match(//)
     expect(rendered).to match(/MyText/)
-    expect(rendered).to match(/MyText/)
-    expect(rendered).to match(/1/)
-    expect(rendered).to match(/2/)
   end
 end

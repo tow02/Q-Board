@@ -1,10 +1,10 @@
-rails g scaffold Role name:text description:text
-rails g scaffold RoomSubject name:text
-rails g scaffold Question user:references room_subject:references title:text content:text total_vote:integer total_star:integer
+rails g model Role name:text description:text
+rails g model UserRole user:references role:references
+rails g scaffold Room name:text
+rails g scaffold Question user:references room:references title:text
+rails g model Image user:references answer:references
+rails g model Comment answer:references user:references content:text
+rails g scaffold Answer question:references user:references content:text is_question:boolean is_accepted:boolean
+rails g model Vote answer:references user:references vote_type:integer
+rails g model AnswerTag answer:references tag:references
 rails g scaffold Tag name:text
-rails g scaffold QuestionTag question:references tag:references
-rails g scaffold Answer question:references user:references content:text total_vote:integer is_accepted:boolean
-rails g scaffold Comment question:references answer:references user:references content:text
-rails g model Image user:references question:references answer:references
-
-rails g migration add_role_to_users role:belongs_to

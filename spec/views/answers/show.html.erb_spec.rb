@@ -6,7 +6,7 @@ RSpec.describe "answers/show", type: :view do
       :question => nil,
       :user => nil,
       :content => "MyText",
-      :total_vote => 1,
+      :is_question => false,
       :is_accepted => false
     ))
   end
@@ -16,7 +16,7 @@ RSpec.describe "answers/show", type: :view do
     expect(rendered).to match(//)
     expect(rendered).to match(//)
     expect(rendered).to match(/MyText/)
-    expect(rendered).to match(/1/)
+    expect(rendered).to match(/false/)
     expect(rendered).to match(/false/)
   end
 end

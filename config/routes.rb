@@ -1,10 +1,7 @@
 Rails.application.routes.draw do
-  resources :comments
-  resources :answers
-  resources :question_tags
   resources :tags
+  resources :answers
   resources :questions
-  resources :room_subjects
-  resources :roles
+  resources :rooms
   devise_for :users
 end

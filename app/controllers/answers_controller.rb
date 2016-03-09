@@ -6,7 +6,7 @@
 #  question_id :integer
 #  user_id     :integer
 #  content     :text
-#  total_vote  :integer
+#  is_question :boolean
 #  is_accepted :boolean
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
@@ -83,6 +83,6 @@ class AnswersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def answer_params
-      params.require(:answer).permit(:question_id, :user_id, :content, :total_vote, :is_accepted)
+      params.require(:answer).permit(:question_id, :user_id, :content, :is_question, :is_accepted)
     end
 end

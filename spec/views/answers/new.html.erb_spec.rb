@@ -6,7 +6,7 @@ RSpec.describe "answers/new", type: :view do
       :question => nil,
       :user => nil,
       :content => "MyText",
-      :total_vote => 1,
+      :is_question => false,
       :is_accepted => false
     ))
   end
@@ -22,7 +22,7 @@ RSpec.describe "answers/new", type: :view do
 
       assert_select "textarea#answer_content[name=?]", "answer[content]"
 
-      assert_select "input#answer_total_vote[name=?]", "answer[total_vote]"
+      assert_select "input#answer_is_question[name=?]", "answer[is_question]"
 
       assert_select "input#answer_is_accepted[name=?]", "answer[is_accepted]"
     end

@@ -2,15 +2,12 @@
 #
 # Table name: questions
 #
-#  id              :integer          not null, primary key
-#  user_id         :integer
-#  room_subject_id :integer
-#  title           :text
-#  content         :text
-#  total_vote      :integer
-#  total_star      :integer
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
+#  id         :integer          not null, primary key
+#  user_id    :integer
+#  room_id    :integer
+#  title      :text
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
 #
 
 class QuestionsController < ApplicationController
@@ -84,6 +81,6 @@ class QuestionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def question_params
-      params.require(:question).permit(:user_id, :room_subject_id, :title, :content, :total_vote, :total_star)
+      params.require(:question).permit(:user_id, :room_id, :title)
     end
 end

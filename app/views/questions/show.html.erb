@@ -6,28 +6,13 @@
 </p>
 
 <p>
-  <strong>Room subject:</strong>
-  <%= @question.room_subject %>
+  <strong>Room:</strong>
+  <%= @question.room %>
 </p>
 
 <p>
   <strong>Title:</strong>
   <%= @question.title %>
-</p>
-
-<p>
-  <strong>Content:</strong>
-  <%= @question.content %>
-</p>
-
-<p>
-  <strong>Total vote:</strong>
-  <%= @question.total_vote %>
-</p>
-
-<p>
-  <strong>Total star:</strong>
-  <%= @question.total_star %>
 </p>
 
 <%= link_to 'Edit', edit_question_path(@question) %> |
