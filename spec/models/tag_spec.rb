@@ -11,5 +11,19 @@
 require 'rails_helper'
 
 RSpec.describe Tag, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  before(:each) do
+    @tag1 = Tag.new(name: "a")
+    @tag2 = Tag.new(name: "a")
+  end
+
+  it "tag's name should be unique" do
+    @tag1.save
+    expect(@tag2.save).to be(false)
+  end
+
+  it "create tag successfully" do
+    @tag1.save
+    @tag2.name = "b"
+    expect(@tag2.save).to be(true)
+  end
 end

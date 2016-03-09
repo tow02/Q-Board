@@ -10,4 +10,6 @@
 
 class Tag < ActiveRecord::Base
   has_many :answer_tags
+
+  validates :name, uniqueness: true
 end
