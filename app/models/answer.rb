@@ -19,4 +19,8 @@ class Answer < ActiveRecord::Base
   has_many :images
   has_many :votes
   has_many :answer_tags
+
+  validates :question_id, presence: true
+  validates :user_id, presence: true
+  validates :content, presence: true
 end
