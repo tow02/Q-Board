@@ -12,4 +12,6 @@
 class AnswerTag < ActiveRecord::Base
   belongs_to :answer
   belongs_to :tag
+
+  validates_uniqueness_of :answer_id, :scope => :tag_id
 end
