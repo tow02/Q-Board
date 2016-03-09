@@ -9,4 +9,5 @@
 #
 
 class Tag < ActiveRecord::Base
+  has_many :answer_tags
 end

@@ -16,6 +16,7 @@
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  username               :text
+#  reputation             :integer
 #
 
 class User < ActiveRecord::Base
@@ -26,5 +27,10 @@ class User < ActiveRecord::Base
 
   before_save { self.username.downcase! }
   validates :username, presence: true, uniqueness: { case_sensitive: false }
-
+  has_many :user_roles
+  has_many :questions
+  has_many :comments
+  has_many :answers
+  has_many :images
+  has_many :votes
 end
