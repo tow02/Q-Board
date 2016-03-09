@@ -14,4 +14,9 @@ class Question < ActiveRecord::Base
   belongs_to :user
   belongs_to :room
   has_many :answers
+
+  validates :room_id, presence: true
+  validates :user_id, presence: true
+  validates :title, presence: true, length: { maximum: 150 }
+  validates_uniqueness_of :user_id, :scope => :room_id
 end
