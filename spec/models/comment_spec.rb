@@ -35,6 +35,13 @@ RSpec.describe Comment, type: :model do
     expect(@comment1.save).to be(false)
   end
 
+  it "comment should have maximum length" do
+    @comment1.answer_id = 1
+    @comment1.user_id = 1
+    @comment1.content = "a"*601
+    expect(@comment1.save).to be(false)
+  end
+
   it "successfully create a comment" do
     @comment1.answer_id = 1
     @comment1.user_id = 1
