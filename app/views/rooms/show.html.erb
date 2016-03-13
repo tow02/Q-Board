@@ -1,9 +1,6 @@
-
-
-<p>
-  <strong>Name:</strong>
+<h3>
   <%= link_to @room.name, @room %>
-</p>
+</h3>
 
 <% if can? :update, @room %>
   <%= link_to 'Edit', edit_room_path(@room) %> |

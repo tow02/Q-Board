@@ -23,3 +23,18 @@ end
 
 user = UserRole.create(user_id: 1, role_id: 1)
 user = UserRole.create(user_id: 1, role_id: 2)
+
+
+math_room = Room.create(name: "Mathematics")
+physics_room = Room.create(name: "Physics")
+cs_room = Room.create(name: "Computer Science")
+bio_room = Room.create(name: "Biology")
+eg_room = Room.create(name: "Engineering")
+
+fi_room = Room.create(name: "Finance")
+mk_room = Room.create(name: "Marketing")
+
+ss_room = Room.create(name: "Social Scince")
+
+art_room = Room.create(name: "Art")
+music_room = Room.create(name: "Music")
