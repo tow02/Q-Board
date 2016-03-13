@@ -9,12 +9,13 @@
 #
 
 class RoomsController < ApplicationController
-  before_action :set_room, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource
+  # before_action :set_room, only: [:show, :edit, :update, :destroy]
 
   # GET /rooms
   # GET /rooms.json
   def index
-    @rooms = Room.all
+    # @rooms = Room.all
   end
 
   # GET /rooms/1
@@ -34,17 +35,23 @@ class RoomsController < ApplicationController
   # POST /rooms
   # POST /rooms.json
   def create
-    @room = Room.new(room_params)
-
-    respond_to do |format|
-      if @room.save
-        format.html { redirect_to @room, notice: 'Room was successfully created.' }
-        format.json { render :show, status: :created, location: @room }
-      else
-        format.html { render :new }
-        format.json { render json: @room.errors, status: :unprocessable_entity }
-      end
+    # @room = Room.new(room_params)
+    if @room.save
+      flash[:notice] = "Room was successfully created."
+      redirect_to @room
+    else
+      render 'new'
     end
+
+    # respond_to do |format|
+    #   if @room.save
+    #     format.html { redirect_to @room, notice: 'Room was successfully created.' }
+    #     format.json { render :show, status: :created, location: @room }
+    #   else
+    #     format.html { render :new }
+    #     format.json { render json: @room.errors, status: :unprocessable_entity }
+    #   end
+    # end
   end
 
   # PATCH/PUT /rooms/1
@@ -73,9 +80,9 @@ class RoomsController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_room
-      @room = Room.find(params[:id])
-    end
+    # def set_room
+    #   @room = Room.find(params[:id])
+    # end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def room_params

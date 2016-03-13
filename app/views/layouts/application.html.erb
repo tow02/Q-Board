@@ -10,9 +10,23 @@
   </head>
   <body>
     <%= render 'layouts/header' %>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-    <%= yield %>
+
+    <% flash.each do |key, value| %>
+      <div class="alert alert-<%= key %>">
+        <a href="#" data-dismiss="alert" class="close">×</a>
+        <ul>
+          <li>
+            <%= value %>
+          </li>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="container">
+      <%= yield %>
+      <%= debug(params) if Rails.env.development? %>
+    </div>
+
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
   </body>

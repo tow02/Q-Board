@@ -1,9 +1,11 @@
-<p id="notice"><%= notice %></p>
+
 
 <p>
   <strong>Name:</strong>
-  <%= @room.name %>
+  <%= link_to @room.name, @room %>
 </p>
 
-<%= link_to 'Edit', edit_room_path(@room) %> |
+<% if can? :update, @room %>
+  <%= link_to 'Edit', edit_room_path(@room) %> |
+<% end %>
 <%= link_to 'Back', rooms_path %>

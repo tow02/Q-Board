@@ -1,4 +1,4 @@
-<p id="notice"><%= notice %></p>
+
 
 <h1>Listing Rooms</h1>
 
@@ -13,10 +13,13 @@
   <tbody>
     <% @rooms.each do |room| %>
       <tr>
-        <td><%= room.name %></td>
-        <td><%= link_to 'Show', room %></td>
-        <td><%= link_to 'Edit', edit_room_path(room) %></td>
-        <td><%= link_to 'Destroy', room, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to room.name, room %></td>
+        <% if can? :update, room %>
+          <td><%= link_to 'Edit', edit_room_path(room) %></td>
+        <% end %>
+        <% if can? :destroy, room %>
+          <td><%= link_to 'Destroy', room, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
@@ -24,4 +27,6 @@
 
 <br>
 
-<%= link_to 'New Room', new_room_path %>
+<% if can? :create, Room %>
+  <%= link_to 'New Room', new_room_path %>
+<% end %>

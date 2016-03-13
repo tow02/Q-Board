@@ -4,7 +4,7 @@ class Ability
   def initialize(user)
     user ||= User.new
     # In case user has more than 1 role, select order by desc
-    user_role ||= UserRole.where(user_id: user.id).order(:role_id).first
+    user_role = UserRole.where(user_id: user.id).order(:role_id).first
 
     if user_role.nil? # if guest user
       can :read, [Room, Question, Answer, Comment, Tag]
@@ -27,7 +27,7 @@ class Ability
         can :update, Comment do |comment|
           comment.try(:user) == user # allow user to update his/her own comments
         end
-        can :update Image do |image|
+        can :update, Image do |image|
           image.try(:user) == user # allow user to update his/her own images
         end
       end
