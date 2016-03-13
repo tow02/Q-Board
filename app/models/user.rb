@@ -33,4 +33,14 @@ class User < ActiveRecord::Base
   has_many :answers
   has_many :images
   has_many :votes
+
+  after_create :assign_role
+
+  private
+
+    # assign user's role when the user signup
+    # The default role is member
+    def assign_role
+      UserRole.create!(user_id: self.id, role_id: 3)
+    end
 end

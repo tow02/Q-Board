@@ -19,7 +19,7 @@ role_member = Role.create(name: "Member",
                       password: "12345678",
                       password_confirmation: "12345678")
   user.save!
-
-  user_role = UserRole.create(user_id: i, role_id: i)
-  user_role.save!
 end
+
+user = UserRole.create(user_id: 1, role_id: 1)
+user = UserRole.create(user_id: 1, role_id: 2)
