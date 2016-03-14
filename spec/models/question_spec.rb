@@ -27,16 +27,16 @@ RSpec.describe Question, type: :model do
     expect(@q1.save).to be(false)
   end
 
-  it "room_id and user_id must be unique together" do
-    @q1.room_id = 1
-    @q1.user_id = 1
-    @q1.save
-
-    @q2.room_id = 1
-    @q2.user_id = 1
-
-    expect(@q2.save).to be(false)
-  end
+  # it "room_id and user_id must be unique together" do
+  #   @q1.room_id = 1
+  #   @q1.user_id = 1
+  #   @q1.save
+  #
+  #   @q2.room_id = 1
+  #   @q2.user_id = 1
+  #
+  #   expect(@q2.save).to be(false)
+  # end
 
   it "A question must have title" do
     @q1.room_id = 1

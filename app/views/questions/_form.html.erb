@@ -1,29 +1,28 @@
-<%= form_for(@question) do |f| %>
+
+<%= form_for([@room, @question]) do |f| %>
   <% if @question.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@question.errors.count, "error") %> prohibited this question from being saved:</h2>
-
-      <ul>
-      <% @question.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+      <div class="alert alert-danger">
+        <ul>
+        <% @question.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
     </div>
   <% end %>
 
   <div class="field">
-    <%= f.label :user_id %><br>
-    <%= f.text_field :user_id %>
-  </div>
-  <div class="field">
-    <%= f.label :room_id %><br>
-    <%= f.text_field :room_id %>
-  </div>
-  <div class="field">
     <%= f.label :title %><br>
-    <%= f.text_area :title %>
+    <%= f.text_field :title, class: "form-control" %> <br>
   </div>
+  <%= fields_for(@answer) do |fa| %>
+    <div class="field">
+      <%= fa.label :content, 'answer content' %><br>
+      <%= fa.text_field :content, class: "form-control" %> <br>
+    </div>
+  <% end %>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit class: "btn btn-primary" %>
   </div>
 <% end %>

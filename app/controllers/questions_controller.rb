@@ -11,22 +11,27 @@
 #
 
 class QuestionsController < ApplicationController
-  before_action :set_question, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource
+  # before_action :set_question, only: [:show, :edit, :update, :destroy]
 
   # GET /questions
   # GET /questions.json
   def index
-    @questions = Question.all
+    @room = Room.find(params[:room_id])
+    @questions = Question.where(room_id: @room.id)
   end
 
   # GET /questions/1
   # GET /questions/1.json
   def show
+    @answers = @question.answers
   end
 
   # GET /questions/new
   def new
+    @room = Room.find(params[:room_id])
     @question = Question.new
+    @answer = Answer.new
   end
 
   # GET /questions/1/edit
@@ -36,16 +41,33 @@ class QuestionsController < ApplicationController
   # POST /questions
   # POST /questions.json
   def create
-    @question = Question.new(question_params)
+    # raise "#{params.to_json}"
 
-    respond_to do |format|
-      if @question.save
-        format.html { redirect_to @question, notice: 'Question was successfully created.' }
-        format.json { render :show, status: :created, location: @question }
-      else
-        format.html { render :new }
-        format.json { render json: @question.errors, status: :unprocessable_entity }
-      end
+    @room = Room.find(params[:room_id])
+    @question = Question.new(question_params)
+    @question.room = @room
+    @question.user = current_user
+    @question.save!
+    @answer = Answer.new(answer_params)
+    @answer.question = @question
+    @answer.user = current_user
+    @answer.save!
+
+    # respond_to do |format|
+    #   if @question.save
+    #     format.html { redirect_to @question, notice: 'Question was successfully created.' }
+    #     format.json { render :show, status: :created, location: @question }
+    #   else
+    #     format.html { render :new }
+    #     format.json { render json: @question.errors, status: :unprocessable_entity }
+    #   end
+    # end
+
+    if @question.save
+      flash[:notice] = "Question was successfully created."
+      redirect_to room_question_path(@room, @question)
+    else
+      render 'questions/new'
     end
   end
 
@@ -81,6 +103,10 @@ class QuestionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def question_params
-      params.require(:question).permit(:user_id, :room_id, :title)
+      params.require(:question).permit(:title)
+    end
+
+    def answer_params
+      params.require(:answer).permit(:content)
     end
 end

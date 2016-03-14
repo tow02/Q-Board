@@ -11,27 +11,25 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :question_id %><br>
-    <%= f.text_field :question_id %>
-  </div>
-  <div class="field">
-    <%= f.label :user_id %><br>
-    <%= f.text_field :user_id %>
-  </div>
-  <div class="field">
-    <%= f.label :content %><br>
-    <%= f.text_area :content %>
-  </div>
-  <div class="field">
-    <%= f.label :is_question %><br>
-    <%= f.check_box :is_question %>
-  </div>
-  <div class="field">
-    <%= f.label :is_accepted %><br>
-    <%= f.check_box :is_accepted %>
-  </div>
+
+    <%= f.label :question_id %>
+    <%= f.text_field :question_id, class: "form-control" %><br>
+
+
+    <%= f.label :user_id %>
+    <%= f.text_field :user_id, class: "form-control" %><br>
+
+    <%= f.label :content %>
+    <%= f.text_area :content, class: "form-control" %><br>
+
+    <%= f.label :is_question %>
+    <%= f.check_box :is_question %> <br>
+
+
+    <%= f.label :is_accepted %>
+    <%= f.check_box :is_accepted %> <br> 
+
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit class: "btn btn-primary" %>
   </div>
 <% end %>

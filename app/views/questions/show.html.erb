@@ -1,19 +1,21 @@
-
-
 <p>
-  <strong>User:</strong>
-  <%= @question.user %>
+  <strong>Room:</strong>
+  <%= link_to @question.room.name, room_path(@question.room) %>
 </p>
 
 <p>
-  <strong>Room:</strong>
-  <%= @question.room %>
+  <strong>User:</strong>
+  <%= @question.user.username %>
 </p>
 
 <p>
   <strong>Title:</strong>
-  <%= @question.title %>
+  <%= link_to @question.title, room_question_path(@question.room, @question) %>
 </p>
 
-<%= link_to 'Edit', edit_question_path(@question) %> |
-<%= link_to 'Back', questions_path %>
+<% @answers.each do |answer| %>
+  <%= answer.content %>
+<% end %>
+
+<!-- # <%= link_to 'Edit', edit_room_question_path(@question.room, @question) %> | -->
+<!-- # <%= link_to 'Back', room_questions_path(@question.room) %> -->

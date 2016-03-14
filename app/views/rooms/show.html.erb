@@ -2,7 +2,16 @@
   <%= link_to @room.name, @room %>
 </h3>
 
+<% @questions.each do |question| %>
+  <h4><%= link_to question.title, room_question_path(question.room, question) %></h4>
+<% end %>
+
+<br>
+
 <% if can? :update, @room %>
   <%= link_to 'Edit', edit_room_path(@room) %> |
 <% end %>
 <%= link_to 'Back', rooms_path %>
+
+<br>
+<%= link_to 'New Question', new_room_question_path(@room) %>
