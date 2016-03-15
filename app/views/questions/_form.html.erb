@@ -1,28 +1,49 @@
-
 <%= form_for([@room, @question]) do |f| %>
-  <% if @question.errors.any? %>
-    <div id="error_explanation">
-      <div class="alert alert-danger">
-        <ul>
-        <% @question.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-        </ul>
-      </div>
-    </div>
-  <% end %>
+<% if @question.errors.any? %>
+<div id="error_explanation">
+  <div class="alert alert-danger">
+    <ul>
+      <% @question.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+</div>
+<% end %>
 
-  <div class="field">
-    <%= f.label :title %><br>
-    <%= f.text_field :title, class: "form-control" %> <br>
-  </div>
-  <%= fields_for(@answer) do |fa| %>
-    <div class="field">
-      <%= fa.label :content, 'answer content' %><br>
-      <%= fa.text_field :content, class: "form-control" %> <br>
-    </div>
+<div class="field">
+  <%= f.label :title %><br>
+  <%= f.text_field :title, class: "form-control" %>
+  <br>
+</div>
+<%= fields_for(@answer) do |fa| %>
+<div class="field">
+  <%= fa.label :content, 'answer content' %><br>
+  <%= fa.text_field :content, class: "form-control" %>
+  <br>
+</div>
+<% end %>
+
+<label>Tag</label><br>
+<select class="form-control js-example-tags" multiple>
+  <% @tags.each do |tag| %>
+    <option><%= tag.name %></option>
   <% end %>
-  <div class="actions">
-    <%= f.submit class: "btn btn-primary" %>
-  </div>
+</select>
+
+<br>
+<br>
+<%= f.submit class: "btn btn-primary" %>
+
+<% end %>
+
+<% content_for :js do %>
+  <script>
+    $(function() {
+      $(".js-example-tags").select2({
+        tags: "true",
+        tokenSeparators: [",", " "]
+      });
+    });
+  </script>
 <% end %>

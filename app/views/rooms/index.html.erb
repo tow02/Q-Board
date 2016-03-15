@@ -3,7 +3,7 @@
 <% @rooms.each do |room| %>
   <h3><%= link_to room.name, room %>
     <% if can? :update, room %>
-      <span><%= link_to 'Edit', edit_room_path(room), class: "btn btn-primary" %></span>
+      <span><%= link_to 'Edit', edit_room_path(room), class: "btn btn-warning" %></span>
     <% end %>
     <% if can? :destroy, room %>
       <span><%= link_to 'Destroy', room, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %></span>

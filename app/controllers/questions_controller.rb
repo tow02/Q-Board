@@ -25,6 +25,8 @@ class QuestionsController < ApplicationController
     @room = Room.find(params[:room_id])
     @question = Question.new
     @answer = Answer.new
+    @tags = Tag.all
+    # @tag = Tag.new
   end
 
   # GET /questions/1/edit
@@ -48,22 +50,18 @@ class QuestionsController < ApplicationController
         @answer.save!
         saved = true
       end
-    rescue ActiveRecord::StatementInvalid
-    end
-
-    respond_to do |format|
-      if saved
-        format.html { redirect_to room_question_path(@room, @question), notice: 'Question was successfully created.' }
-        format.json { render :show, status: :created, location: @question }
-      else
-        format.html { render :new }
-        format.json { render json: @question.errors, status: :unprocessable_entity }
+    # rescue ActiveRecord::StatementInvalid
+    # end
+      rescue_from ActiveRecord::StatementInvalid do |exception|
+        logger.error "#{exception}"
+        flash[:warning] = exception.message
+        redirect_to new_room_question_path(@room, @question)
       end
     end
 
     # respond_to do |format|
     #   if saved
-    #     format.html { redirect_to @question, notice: 'Question was successfully created.' }
+    #     format.html { redirect_to room_question_path(@room, @question), notice: 'Question was successfully created.' }
     #     format.json { render :show, status: :created, location: @question }
     #   else
     #     format.html { render :new }
@@ -71,14 +69,12 @@ class QuestionsController < ApplicationController
     #   end
     # end
 
-
-
-    # if saved
-    #   flash[:notice] = "Question was successfully created."
-    #   redirect_to room_question_path(@room, @question)
+    if saved
+      flash[:notice] = "Question was successfully created."
+      redirect_to room_question_path(@room, @question)
     # else
     #   render 'questions/new'
-    # end
+    end
   end
 
   # PATCH/PUT /questions/1
@@ -118,5 +114,9 @@ class QuestionsController < ApplicationController
 
     def answer_params
       params.require(:answer).permit(:content)
+    end
+
+    def tag_params
+      params.require(:tag).permit(:name)
     end
 end

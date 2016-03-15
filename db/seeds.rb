@@ -38,3 +38,10 @@ ss_room = Room.create(name: "Social Scince")
 
 art_room = Room.create(name: "Art")
 music_room = Room.create(name: "Music")
+
+o = [('a'..'z'), ('A'..'Z')].map { |i| i.to_a }.flatten
+(0..10).each do |i|
+  string = (0...7).map { o[rand(o.length)] }.join
+  Tag.create(name: string)
+
+end
