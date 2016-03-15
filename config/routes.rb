@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   resources :answers
 
   resources :rooms do
-    resources :questions
+    resources :questions, only:[:show, :new, :edit, :create, :update, :destroy]
   end
   devise_for :users
 

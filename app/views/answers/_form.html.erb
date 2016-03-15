@@ -1,13 +1,13 @@
 <%= form_for(@answer) do |f| %>
   <% if @answer.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@answer.errors.count, "error") %> prohibited this answer from being saved:</h2>
-
+      <div class="alert alert-danger">
       <ul>
       <% @answer.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>
+      </div>
     </div>
   <% end %>
 
@@ -27,7 +27,7 @@
 
 
     <%= f.label :is_accepted %>
-    <%= f.check_box :is_accepted %> <br> 
+    <%= f.check_box :is_accepted %> <br>
 
   <div class="actions">
     <%= f.submit class: "btn btn-primary" %>

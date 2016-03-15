@@ -41,20 +41,35 @@ class QuestionsController < ApplicationController
   # POST /questions
   # POST /questions.json
   def create
-    # raise "#{params.to_json}"
+    saved = false
+    begin
+      ActiveRecord::Base.transaction do
+        @room = Room.find(params[:room_id])
+        @question = Question.new(question_params)
+        @question.room = @room
+        @question.user = current_user
+        @question.save!
+        @answer = Answer.new(answer_params)
+        @answer.question = @question
+        @answer.user = current_user
+        @answer.save!
+        saved = true
+      end
+    rescue ActiveRecord::StatementInvalid
+    end
 
-    @room = Room.find(params[:room_id])
-    @question = Question.new(question_params)
-    @question.room = @room
-    @question.user = current_user
-    @question.save!
-    @answer = Answer.new(answer_params)
-    @answer.question = @question
-    @answer.user = current_user
-    @answer.save!
+    respond_to do |format|
+      if saved
+        format.html { redirect_to room_question_path(@room, @question), notice: 'Question was successfully created.' }
+        format.json { render :show, status: :created, location: @question }
+      else
+        format.html { render :new }
+        format.json { render json: @question.errors, status: :unprocessable_entity }
+      end
+    end
 
     # respond_to do |format|
-    #   if @question.save
+    #   if saved
     #     format.html { redirect_to @question, notice: 'Question was successfully created.' }
     #     format.json { render :show, status: :created, location: @question }
     #   else
@@ -63,12 +78,14 @@ class QuestionsController < ApplicationController
     #   end
     # end
 
-    if @question.save
-      flash[:notice] = "Question was successfully created."
-      redirect_to room_question_path(@room, @question)
-    else
-      render 'questions/new'
-    end
+
+
+    # if saved
+    #   flash[:notice] = "Question was successfully created."
+    #   redirect_to room_question_path(@room, @question)
+    # else
+    #   render 'questions/new'
+    # end
   end
 
   # PATCH/PUT /questions/1
