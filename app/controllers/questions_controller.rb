@@ -14,13 +14,6 @@ class QuestionsController < ApplicationController
   load_and_authorize_resource
   # before_action :set_question, only: [:show, :edit, :update, :destroy]
 
-  # GET /questions
-  # GET /questions.json
-  def index
-    @room = Room.find(params[:room_id])
-    @questions = Question.where(room_id: @room.id)
-  end
-
   # GET /questions/1
   # GET /questions/1.json
   def show
