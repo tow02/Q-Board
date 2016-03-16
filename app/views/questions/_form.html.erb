@@ -1,4 +1,4 @@
-<%= form_for([@room, @question]) do |f| %>
+<%= form_for([@room, @question], :html => { onsubmit: "return submitForm()" }) do |f| %>
 <% if @question.errors.any? %>
 <div id="error_explanation">
   <div class="alert alert-danger">
@@ -25,11 +25,13 @@
 <% end %>
 
 <label>Tag</label><br>
-<select class="form-control js-example-tags" multiple>
+<select class="form-control js-example-tags" multiple="multiple">
   <% @tags.each do |tag| %>
-    <option><%= tag.name %></option>
+  <option><%= tag.name %></option>
   <% end %>
 </select>
+
+<%= hidden_field_tag "tags" %>
 
 <br>
 <br>
@@ -39,11 +41,25 @@
 
 <% content_for :js do %>
   <script>
-    $(function() {
-      $(".js-example-tags").select2({
-        tags: "true",
-        tokenSeparators: [",", " "]
-      });
+    $(".js-example-tags").select2({
+      tags: true,
+      tokenSeparators: [",", " "]
+    });
+
+    var $eventSelect = $(".js-example-tags");
+    var tags_array = [];
+
+    $eventSelect.on("change", function(e) {
+      e.preventDefault();
+      tags_array = $(".js-example-tags").val();
+      if (tags_array == null) {
+        tags_array = [];
+        $("#tags").val("");
+      } else {
+        console.log(tags_array);
+        console.log(tags_array.toString());
+        $("#tags").val(tags_array.toString());
+      }
     });
   </script>
 <% end %>
