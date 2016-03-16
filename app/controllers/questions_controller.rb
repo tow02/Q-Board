@@ -18,6 +18,13 @@ class QuestionsController < ApplicationController
   # GET /questions/1.json
   def show
     @answers = @question.answers
+    @answer = @question.answers.first
+    @answer_tags = @answer.answer_tags
+    @tags = []
+    @answer_tags.each do |answer_tag|
+      tag = Tag.find(answer_tag[:tag_id])
+      @tags.push(tag)
+    end
   end
 
   # GET /questions/new

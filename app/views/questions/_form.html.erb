@@ -19,7 +19,7 @@
 <%= fields_for(@answer) do |fa| %>
 <div class="field">
   <%= fa.label :content, 'answer content' %><br>
-  <%= fa.text_field :content, class: "form-control" %>
+  <%= fa.text_area :content, class: "form-control" %>
   <br>
 </div>
 <% end %>

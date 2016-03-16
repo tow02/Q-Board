@@ -17,5 +17,11 @@
   <%= answer.content %>
 <% end %>
 
+<br>
+
+<% @tags.each do |tag| %>
+  <%= link_to tag[:name], tag_path(tag)%>
+<% end %>
+
 <!-- # <%= link_to 'Edit', edit_room_question_path(@question.room, @question) %> | -->
 <!-- # <%= link_to 'Back', room_questions_path(@question.room) %> -->
