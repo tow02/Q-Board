@@ -1,6 +1,6 @@
-<h3>
+<h1>
   <%= link_to @question.room.name, room_path(@question.room) %>
-</h3>
+</h1>
 
 <h4><%= link_to @question.title, room_question_path(@question.room, @question) %></h4>
 
@@ -10,19 +10,16 @@
     <div class="media">
 
       <div class="media-left media-top">
-        <a href="#">
-          <img class="media-object" src="..." alt="...">
-        </a>
+        <%= link_to @question.user.username, '#'%>
       </div>
 
       <div class="media-body">
         <%= @answer.content %>
         <br>
-        <%= link_to @question.user.username, '#'%>
       </div>
 
     </div>
-
+    <br>
     <span class="glyphicon glyphicon-tag" aria-hidden="true"></span>
     Tags:
     <% @tags.each do |tag| %>
@@ -32,7 +29,35 @@
 </div>
 
 <% @answers.each do |answer| %>
-<%= answer.content %>
+<div class="panel panel-default">
+  <div class="panel-body">
+    <div class="media">
+      <div class="media-left media-top">
+        <%= link_to answer.user.username, '#' %>
+      </div>
+      <div class="media-body">
+        <%= answer.content %> <br>
+      </div>
+    </div>
+  </div>
+</div>
+<% end %>
+
+<form action="<%= answers_path %>" method="post" onsubmit="postAnswer()">
+  <textarea name="content" rows="8" class="form-control"></textarea>
+  <br>
+  <input type="submit" value="Post answer" class="btn btn-primary">
+  <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+  <%= hidden_field_tag "question_id" %>
+</form>
+
+<% content_for :js do %>
+<script>
+  function postAnswer() {
+    var question_id = "<%= params[:id] %>";
+    $("#question_id").val(question_id);
+  }
+</script>
 <% end %>
 
 <!-- # <%= link_to 'Edit', edit_room_question_path(@question.room, @question) %> | -->

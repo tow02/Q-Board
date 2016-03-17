@@ -13,7 +13,8 @@
 #
 
 class AnswersController < ApplicationController
-  before_action :set_answer, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource
+  # before_action :set_answer, only: [:show, :edit, :update, :destroy]
 
   # GET /answers
   # GET /answers.json
@@ -38,14 +39,21 @@ class AnswersController < ApplicationController
   # POST /answers
   # POST /answers.json
   def create
-    @answer = Answer.new(answer_params)
+    @answer = Answer.new
+    @answer[:content] = params[:content]
+    @question_id = params[:question_id].to_i
+    @answer[:question_id] = @question_id
+    @answer[:user_id] = current_user.id
+    @question = Question.find(@question_id)
 
     respond_to do |format|
       if @answer.save
-        format.html { redirect_to @answer, notice: 'Answer was successfully created.' }
+        # format.html { redirect_to @answer, notice: 'Answer was successfully created.' }
+        format.html { redirect_to room_question_path(@question.room, @question), notice: 'Answer was successfully created.' }
         format.json { render :show, status: :created, location: @answer }
       else
-        format.html { render :new }
+        # format.html { render :new }
+        format.html { redirect_to room_question_path(@question.room, @question), notice: "Content can't be blank" }
         format.json { render json: @answer.errors, status: :unprocessable_entity }
       end
     end
@@ -82,7 +90,7 @@ class AnswersController < ApplicationController
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
-    def answer_params
-      params.require(:answer).permit(:question_id, :user_id, :content, :is_question, :is_accepted)
-    end
+    # def answer_params
+    #   params.require(:answer).permit(:content)
+    # end
 end

@@ -17,7 +17,9 @@ class QuestionsController < ApplicationController
   # GET /questions/1
   # GET /questions/1.json
   def show
-    @answers = @question.answers
+    # raise "#{params}"
+    @answers = @question.answers.offset(1) # exclude the first record
+                                           # because it's attached to question
     @answer = @question.answers.first
     @answer_tags = @answer.answer_tags
     @tags = []
