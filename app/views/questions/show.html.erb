@@ -1,26 +1,38 @@
-<p>
-  <strong>Room:</strong>
+<h3>
   <%= link_to @question.room.name, room_path(@question.room) %>
-</p>
+</h3>
 
-<p>
-  <strong>User:</strong>
-  <%= @question.user.username %>
-</p>
+<h4><%= link_to @question.title, room_question_path(@question.room, @question) %></h4>
 
-<p>
-  <strong>Title:</strong>
-  <%= link_to @question.title, room_question_path(@question.room, @question) %>
-</p>
+<div class="panel panel-default">
+  <div class="panel-body">
+
+    <div class="media">
+
+      <div class="media-left media-top">
+        <a href="#">
+          <img class="media-object" src="..." alt="...">
+        </a>
+      </div>
+
+      <div class="media-body">
+        <%= @answer.content %>
+        <br>
+        <%= link_to @question.user.username, '#'%>
+      </div>
+
+    </div>
+
+    <span class="glyphicon glyphicon-tag" aria-hidden="true"></span>
+    Tags:
+    <% @tags.each do |tag| %>
+    <span class="badge"><%= link_to tag[:name], tag_path(tag), class: "tags-text"%></span>
+    <% end %>
+  </div>
+</div>
 
 <% @answers.each do |answer| %>
-  <%= answer.content %>
-<% end %>
-
-<br>
-
-<% @tags.each do |tag| %>
-  <%= link_to tag[:name], tag_path(tag)%>
+<%= answer.content %>
 <% end %>
 
 <!-- # <%= link_to 'Edit', edit_room_question_path(@question.room, @question) %> | -->

@@ -72,3 +72,11 @@ body {
   margin-top: 45px;
   @include box_sizing;
 }
+
+.tags-text {
+  color: White;
+}
+
+.tags-text:hover {
+  color: White;
+}
