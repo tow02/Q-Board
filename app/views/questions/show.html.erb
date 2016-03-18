@@ -13,11 +13,12 @@
         <%= link_to @question.user.username, '#'%>
         <%= link_to like_answer_path(@answer), method: :put do %>
           Upvote
-          <%= @answer.get_upvotes.size %>
         <% end %>
+        <br>
+        <%= @answer.score %>
         <%= link_to dislike_answer_path(@answer), method: :put do %>
           Downvote
-          <%= @answer.get_downvotes.size %>
+
         <% end %>
       </div>
 
@@ -44,11 +45,13 @@
         <%= link_to answer.user.username, '#' %>
         <%= link_to like_answer_path(answer), method: :put do %>
           Upvote
-          <%= answer.get_upvotes.size %>
+
         <% end %>
+        <br>
+        <%= answer.score %>
         <%= link_to dislike_answer_path(answer), method: :put do %>
           Downvote
-          <%= answer.get_downvotes.size %>
+
         <% end %>
       </div>
       <div class="media-body">
