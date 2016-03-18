@@ -14,6 +14,7 @@ class Ability
       elsif user_role.moderator?
         can :read, Room
         can [:create, :read, :update, :destroy], [Question, Answer, Comment, Image]
+        can :vote, Answer
         can [:create, :read], Tag
       elsif user_role.member?
         can :read, Room
@@ -24,6 +25,7 @@ class Ability
         can :update, Answer do |answer|
           answer.try(:user) == user # allow user to update his/her own answers
         end
+        can :vote, Answer
         can :update, Comment do |comment|
           comment.try(:user) == user # allow user to update his/her own comments
         end

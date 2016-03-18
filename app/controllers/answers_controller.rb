@@ -14,6 +14,7 @@
 
 class AnswersController < ApplicationController
   load_and_authorize_resource
+  skip_authorize_resource :only => [:upvote, :downvote]
   # before_action :set_answer, only: [:show, :edit, :update, :destroy]
 
   # GET /answers
@@ -85,12 +86,14 @@ class AnswersController < ApplicationController
 
   def upvote
     @answer = Answer.find(params[:id])
+    authorize! :vote, @answer
     @answer.upvote_by current_user
     redirect_to :back
   end
 
   def downvote
     @answer = Answer.find(params[:id])
+    authorize! :vote, @answer
     @answer.downvote_by current_user
     redirect_to :back
   end
