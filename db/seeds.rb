@@ -39,15 +39,15 @@ ss_room = Room.create(name: "Social Scince")
 art_room = Room.create(name: "Art")
 music_room = Room.create(name: "Music")
 
-tags_array = ["javascript", "java", "c#", "php", "android",
-              "jquery", "python", "html", "c++", "ios",
-              "mysql", "css", "sql", "asp.net", "objective-c",
-              "ruby-on-rails", ".net", "c", "iphone", "arrays",
-              "angularjs", "sql-server", "ruby", "json", "ajax",
-              "regex", "xml", "asp.net-mvc", "r", "linux",
-              "wpf", "django", "node.js", "database", "xcode",
-              "vb.net"]
-
-tags_array.each do |tag|
-  Tag.create(name: tag)
-end
+# tags_array = ["javascript", "java", "c#", "php", "android",
+#               "jquery", "python", "html", "c++", "ios",
+#               "mysql", "css", "sql", "asp.net", "objective-c",
+#               "ruby-on-rails", ".net", "c", "iphone", "arrays",
+#               "angularjs", "sql-server", "ruby", "json", "ajax",
+#               "regex", "xml", "asp.net-mvc", "r", "linux",
+#               "wpf", "django", "node.js", "database", "xcode",
+#               "vb.net"]
+#
+# tags_array.each do |tag|
+#   Tag.create(name: tag)
+# end

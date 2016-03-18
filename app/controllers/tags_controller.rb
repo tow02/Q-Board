@@ -21,6 +21,18 @@ class TagsController < ApplicationController
   # GET /tags/1
   # GET /tags/1.json
   def show
+    @tag = Tag.find(params[:id])
+    @answer_tags = @tag.answer_tags
+    @answers = []
+    @answer_tags.each do |answer_tag|
+      answer = Answer.find(answer_tag[:answer_id])
+      @answers.push(answer)
+    end
+    @questions = []
+    @answers.each do |answer|
+      question = Question.find(answer[:question_id])
+      @questions.push(question)
+    end
   end
 
   # GET /tags/new

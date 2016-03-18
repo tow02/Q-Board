@@ -1,9 +1,16 @@
+<h3>
+  <%= link_to @tag.name, @tag %>
+</h3>
 
+<% @questions.each do |question| %>
+  <%= link_to question.title, room_question_path(question.room_id, question) %> <br>
+<% end %>
 
-<p>
-  <strong>Name:</strong>
-  <%= @tag.name %>
-</p>
+<br><br>
+<% if can? :update, @tag %>
+  <%= link_to 'Edit', edit_tag_path(@tag), :class => "btn btn-warning" %>
+<% end %>
 
-<%= link_to 'Edit', edit_tag_path(@tag) %> |
-<%= link_to 'Back', tags_path %>
+<% if can? :destroy, @tag %>
+  <%= link_to 'Delete', tag_path(@tag), method: :delete, :class => "btn btn-danger" %>
+<% end %>
