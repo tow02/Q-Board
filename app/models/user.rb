@@ -29,7 +29,7 @@ class User < ActiveRecord::Base
   validates :username, presence: true, uniqueness: { case_sensitive: false }
   has_many :user_roles
   has_many :questions
-  has_many :comments
+  # has_many :comments
   has_many :answers
   has_many :images
   has_many :votes
