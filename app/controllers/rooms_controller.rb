@@ -22,6 +22,24 @@ class RoomsController < ApplicationController
   # GET /rooms/1.json
   def show
     @questions = @room.questions
+    @answers = []
+    @questions.each do |question|
+      @answers.push(question.answers.first)
+    end
+    # combine each answer with each question
+    @qas = @questions.zip(@answers)
+
+    # @answer_tags = []
+    # @tags = []
+    # @answers.each do |answer|
+    #   answer_tags = answer.answer_tags
+    #   @answer_tags.push(answer_tags)
+    #   answer_tags.each do |answer_tag|
+    #     tag = Tag.find(answer_tag[:tag_id])
+    #     @tags.push(tag)
+    #   end
+    # end
+    # @zz = @answer_tags.zip(@tags)
   end
 
   # GET /rooms/new
