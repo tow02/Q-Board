@@ -80,3 +80,19 @@ body {
 .tags-text:hover {
   color: White;
 }
+
+.vote {
+  color: Gray;
+}
+
+.vote:hover {
+  text-decoration: none;
+}
+
+.vote-up:hover {
+  color: Green;
+}
+
+.vote-down:hover {
+  color: Red;
+}

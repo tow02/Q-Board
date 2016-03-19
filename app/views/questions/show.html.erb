@@ -2,23 +2,23 @@
   <%= link_to @question.room.name, room_path(@question.room) %>
 </h1>
 
-<h4><%= link_to @question.title, room_question_path(@question.room, @question) %></h4>
-
 <div class="panel panel-default">
+  <div class="panel-heading">
+    <h4><%= link_to @question.title, room_question_path(@question.room, @question) %></h4>
+  </div>
   <div class="panel-body">
 
     <div class="media">
 
       <div class="media-left media-top">
-        <%= link_to @question.user.username, '#'%>
-        <%= link_to like_answer_path(@answer), method: :put do %>
-          Upvote
+        <%= link_to @question.user.username, '#'%> <br><br>
+        <%= link_to like_answer_path(@answer), class: "vote vote-up", method: :put do %>
+        <i class="fa fa-thumbs-o-up fa-2x"></i>
         <% end %>
         <br>
         <%= @answer.score %>
-        <%= link_to dislike_answer_path(@answer), method: :put do %>
-          Downvote
-
+        <%= link_to dislike_answer_path(@answer), class: "vote vote-down", method: :put do %>
+          <i class="fa fa-thumbs-o-down fa-2x"></i>
         <% end %>
       </div>
 
@@ -38,46 +38,49 @@
 </div>
 
 <% @answers.each do |answer| %>
-<div class="panel panel-default">
-  <div class="panel-body">
-    <div class="media">
-      <div class="media-left media-top">
-        <%= link_to answer.user.username, '#' %>
-        <%= link_to like_answer_path(answer), method: :put do %>
-          Upvote
-
-        <% end %>
-        <br>
-        <%= answer.score %>
-        <%= link_to dislike_answer_path(answer), method: :put do %>
-          Downvote
-
-        <% end %>
-      </div>
-      <div class="media-body">
-        <%= answer.content %> <br>
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <div class="media">
+        <div class="media-left media-top">
+          <%= link_to answer.user.username, '#' %> <br><br>
+          <%= link_to like_answer_path(answer), class: "vote vote-up", method: :put do %>
+            <i class="fa fa-thumbs-o-up fa-2x"></i>
+          <% end %>
+          <br>
+          <%= answer.score %>
+          <%= link_to dislike_answer_path(answer), class: "vote vote-down", method: :put do %>
+            <i class="fa fa-thumbs-o-down fa-2x"></i>
+          <% end %>
+        </div>
+        <div class="media-body">
+          <%= answer.content %>
+          <br>
+        </div>
       </div>
     </div>
   </div>
-</div>
 <% end %>
 
-<form action="<%= answers_path %>" method="post" onsubmit="postAnswer()">
-  <textarea name="content" rows="8" class="form-control"></textarea>
-  <br>
-  <input type="submit" value="Post answer" class="btn btn-primary">
-  <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
-  <%= hidden_field_tag "question_id" %>
-</form>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Answer to question</h3>
+  </div>
+  <div class="panel-body">
+    <form action="<%= answers_path %>" method="post" onsubmit="postAnswer()">
+      <textarea name="content" rows="8" class="form-control"></textarea>
+      <br>
+      <input type="submit" value="Post answer" class="btn btn-primary">
+      <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+      <%= hidden_field_tag "question_id" %>
+    </form
+  </div>
+</div>
 
 <% content_for :js do %>
-<script>
-  function postAnswer() {
-    var question_id = "<%= params[:id] %>";
-    $("#question_id").val(question_id);
-  }
-</script>
+  <script>
+    function postAnswer() {
+      var question_id = "<%= params[:id] %>";
+      $("#question_id").val(question_id);
+    }
+  </script>
 <% end %>
-
-<!-- # <%= link_to 'Edit', edit_room_question_path(@question.room, @question) %> | -->
-<!-- # <%= link_to 'Back', room_questions_path(@question.room) %> -->
