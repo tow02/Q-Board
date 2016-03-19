@@ -33,6 +33,12 @@ class TagsController < ApplicationController
       question = Question.find(answer[:question_id])
       @questions.push(question)
     end
+
+    @answers = []
+    @questions.each do |question|
+      @answers.push(question.answers.first)
+    end
+    @qas = @questions.zip(@answers)
   end
 
   # GET /tags/new
