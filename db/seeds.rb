@@ -34,7 +34,7 @@ eg_room = Room.create(name: "Engineering")
 fi_room = Room.create(name: "Finance")
 mk_room = Room.create(name: "Marketing")
 
-ss_room = Room.create(name: "Social Scince")
+# ss_room = Room.create(name: "Social Scince")
 
 art_room = Room.create(name: "Art")
 music_room = Room.create(name: "Music")

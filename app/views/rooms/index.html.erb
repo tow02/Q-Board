@@ -1,19 +1,25 @@
-<h1 class="text-center"><%= link_to "All Subjects", rooms_path %></h1>
-
-<% @rooms.each do |room| %>
-  <h3><%= link_to room.name, room %>
-    <% if can? :update, room %>
-      <span><%= link_to 'Edit', edit_room_path(room), class: "btn btn-warning" %></span>
+<div class="text-center container-fluid">
+  <div class="row">
+    <% @rooms.each do |room| %>
+    <div class="col-md-4">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <h3><%= link_to room.name, room %></h3>
+          <% if can? :update, room %>
+          <span><%= link_to 'Edit', edit_room_path(room), class: "btn btn-warning" %></span>
+          <% end %>
+          <% if can? :destroy, room %>
+          <span><%= link_to 'Destroy', room, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %></span>
+          <% end %>
+        </div>
+      </div>
+    </div>
     <% end %>
-    <% if can? :destroy, room %>
-      <span><%= link_to 'Destroy', room, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %></span>
-    <% end %>
-  </h3>
-<% end %>
+  </div>
+</div>
 
-<br>
 <br>
 
 <% if can? :create, Room %>
-  <%= link_to 'New Room', new_room_path, class: "btn btn-primary" %>
+<%= link_to 'New Room', new_room_path, class: "btn btn-primary" %>
 <% end %>
