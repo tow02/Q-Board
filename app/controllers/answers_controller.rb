@@ -88,6 +88,9 @@ class AnswersController < ApplicationController
     @answer = Answer.find(params[:id])
     authorize! :vote, @answer
     @answer.upvote_by current_user
+    @user = User.find(@answer[:user_id])
+    @user.reputation += 1
+    @user.save!
     redirect_to :back
   end
 
@@ -95,6 +98,9 @@ class AnswersController < ApplicationController
     @answer = Answer.find(params[:id])
     authorize! :vote, @answer
     @answer.downvote_by current_user
+    @user = User.find(@answer[:user_id])
+    @user.reputation -= 1
+    @user.save!
     redirect_to :back
   end
 
