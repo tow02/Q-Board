@@ -119,6 +119,11 @@ class QuestionsController < ApplicationController
         @answer.question = @question
         @answer.user = current_user
         @answer.save!
+
+        # Destroy all tags that user used to submit before
+        @answer_tags = @answer.answer_tags
+        @answer_tags.destroy_all
+
         if !@tags.empty? # if not empty
           @tags.each do |tag|
             new_tag = Tag.where(name: tag)
