@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   # resources :answers
 
   resources :rooms do
-    resources :questions, only:[:show, :new, :edit, :create, :update, :destroy]
+    resources :questions, only: [:show, :new, :edit, :create, :update, :destroy]
   end
 
   resources :answers do
@@ -14,6 +14,8 @@ Rails.application.routes.draw do
   end
 
   devise_for :users
+
+  resources :users, only: [:show]
 
   root to: 'rooms#index'
 end

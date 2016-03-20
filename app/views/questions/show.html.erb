@@ -12,7 +12,7 @@
     <div class="media">
 
       <div class="media-left media-top">
-        <%= link_to @question.user.username, '#'%> <br><br>
+        <%= link_to @question.user.username, user_path(@question.user)%> <br><br>
         <%= link_to like_answer_path(@answer), class: "vote vote-up", method: :put do %>
         <i class="fa fa-thumbs-o-up fa-2x"></i>
         <% end %>
@@ -45,7 +45,7 @@
     <div class="panel-body">
       <div class="media">
         <div class="media-left media-top">
-          <%= link_to answer.user.username, '#' %> <br><br>
+          <%= link_to answer.user.username, user_path(answer.user) %> <br><br>
           <%= link_to like_answer_path(answer), class: "vote vote-up", method: :put do %>
             <i class="fa fa-thumbs-o-up fa-2x"></i>
           <% end %>
@@ -76,7 +76,7 @@
       <input type="submit" value="Post answer" class="btn btn-primary">
       <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
       <%= hidden_field_tag "question_id" %>
-    </form
+    </form>
   </div>
 </div>
 
