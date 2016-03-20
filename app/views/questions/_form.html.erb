@@ -16,10 +16,23 @@
   <%= f.text_field :title, class: "form-control" %>
   <br>
 </div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Preview</h3>
+  </div>
+  <div class="panel-body">
+    <div id="targetDiv">
+
+    </div>
+  </div>
+</div>
+
+
 <%= fields_for(@answer) do |fa| %>
 <div class="field">
   <%= fa.label :content, 'answer content' %><br>
-  <%= fa.text_area :content, class: "form-control" %>
+  <%= fa.text_area :content, class: "form-control", id: "sourceTA", rows: "8" %>
   <br>
 </div>
 <% end %>

@@ -85,11 +85,23 @@
 
 <div class="panel panel-default">
   <div class="panel-heading">
+    <h3 class="panel-title">Preview</h3>
+  </div>
+  <div class="panel-body">
+    <div id="targetDiv">
+
+    </div>
+  </div>
+</div>
+
+
+<div class="panel panel-default">
+  <div class="panel-heading">
     <h3 class="panel-title">Answer to question</h3>
   </div>
   <div class="panel-body">
     <form action="<%= answers_path %>" method="post" onsubmit="postAnswer()">
-      <textarea name="content" rows="8" class="form-control"></textarea>
+      <textarea name="content" rows="8" class="form-control" id="sourceTA"></textarea>
       <br>
       <input type="submit" value="Post answer" class="btn btn-primary">
       <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
@@ -104,5 +116,14 @@
       var question_id = "<%= params[:id] %>";
       $("#question_id").val(question_id);
     }
+
+    $('#sourceTA').on('input', function() {
+      var text = $('#sourceTA').val();
+      target = document.getElementById('targetDiv');
+      converter = new showdown.Converter();
+      html = converter.makeHtml(text);
+      target.innerHTML = html;
+    });
+
   </script>
 <% end %>
