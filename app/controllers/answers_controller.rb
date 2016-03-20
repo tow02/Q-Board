@@ -63,15 +63,15 @@ class AnswersController < ApplicationController
   # PATCH/PUT /answers/1
   # PATCH/PUT /answers/1.json
   def update
-    respond_to do |format|
-      if @answer.update(answer_params)
-        format.html { redirect_to @answer, notice: 'Answer was successfully updated.' }
-        format.json { render :show, status: :ok, location: @answer }
+    @answer = Answer.find(params[:id])
+    @answer.content = params[:answer][:content]
+    @question = Question.find(@answer.question_id)
+      if @answer.save
+        flash[:notice] = "Answer was successfully updated."
+        redirect_to room_question_path(@question.room, @question)
       else
-        format.html { render :edit }
-        format.json { render json: @answer.errors, status: :unprocessable_entity }
+        redirect_to :back
       end
-    end
   end
 
   # DELETE /answers/1
