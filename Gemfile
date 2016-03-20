@@ -20,6 +20,7 @@ gem 'acts_as_votable', '~> 0.10.0'
 gem 'pg'
 gem 'will_paginate', '~> 3.0.6'
 gem 'will_paginate-bootstrap'
+gem 'redcarpet'
 
 gem 'capistrano', '~> 3.4.0'
 gem 'capistrano-rails'
