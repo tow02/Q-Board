@@ -36,7 +36,17 @@
     <span class="badge"><%= link_to tag[:name], tag_path(tag), class: "tags-text"%></span>
 
     <% end %>
-    <p class="pull-right">Posted at: <%= @answer.created_at.strftime('%v')%></p>
+    <p class="pull-right">Posted at: <%= @answer.updated_at.strftime('%v')%></p>
+
+    <% if can? :update, @question %>
+      <br><br>
+      <%= link_to "Edit question", edit_room_question_path(@question.room, @question), class: "btn btn-warning pull-right" %>
+    <% end %>
+    <% if can? :destroy, @question %>
+      <%= link_to "Delete question", room_question_path(@question.room, @question), class: "btn btn-danger pull-right", method: :delete %>
+    <% end %>
+
+
   </div>
 </div>
 
@@ -58,7 +68,14 @@
         <div class="media-body">
           <%= answer.content %>
           <br><br>
-          <p class="pull-right">Posted at: <%= answer.created_at.strftime('%v') %></p>
+          <p class="pull-right">Posted at: <%= answer.updated_at.strftime('%v') %></p>
+          <% if can? :update, answer %>
+            <br><br>
+            <%= link_to "Edit answer", edit_answer_path(answer), class: "btn btn-warning pull-right" %>
+          <% end %>
+          <% if can? :destroy, answer %>
+            <%= link_to "Delete answer", answer_path(answer), class: "btn btn-danger pull-right", method: :delete %>
+          <% end %>
         </div>
       </div>
     </div>

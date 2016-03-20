@@ -40,6 +40,12 @@ class QuestionsController < ApplicationController
 
   # GET /questions/1/edit
   def edit
+    # raise "#{params}"
+    @room = Room.find(params[:room_id])
+    @answer = @question.answers.first
+    # @tags = Tag.all
+    @answer_tags = @answer.answer_tags
+    @tags = Tag.all
   end
 
   # POST /questions
@@ -89,14 +95,53 @@ class QuestionsController < ApplicationController
   # PATCH/PUT /questions/1
   # PATCH/PUT /questions/1.json
   def update
-    respond_to do |format|
-      if @question.update(question_params)
-        format.html { redirect_to @question, notice: 'Question was successfully updated.' }
-        format.json { render :show, status: :ok, location: @question }
-      else
-        format.html { render :edit }
-        format.json { render json: @question.errors, status: :unprocessable_entity }
+    # respond_to do |format|
+    #   if @question.update(question_params)
+    #     format.html { redirect_to @question, notice: 'Question was successfully updated.' }
+    #     format.json { render :show, status: :ok, location: @question }
+    #   else
+    #     format.html { render :edit }
+    #     format.json { render json: @question.errors, status: :unprocessable_entity }
+    #   end
+    # end
+    # raise "#{params}"
+    saved = false
+    begin
+      ActiveRecord::Base.transaction do
+        @tags = params[:tags].split(",")
+        @room = Room.find(params[:room_id])
+        @question = Question.find(params[:id])
+        @question.room = @room
+        @question.user = current_user
+        @question.save!
+        @answer = @question.answers.first
+        @answer.content = params[:answer][:content]
+        @answer.question = @question
+        @answer.user = current_user
+        @answer.save!
+        if !@tags.empty? # if not empty
+          @tags.each do |tag|
+            new_tag = Tag.where(name: tag)
+            if new_tag.empty?
+              new_tag = Tag.create(name: tag)
+              new_tag.save!
+            else
+              new_tag = new_tag.first
+            end
+            ans_tag = AnswerTag.create(answer_id: @answer.id, tag_id: new_tag[:id])
+            ans_tag.save!
+          end
+        end
+        saved = true
       end
+      rescue ActiveRecord::StatementInvalid
+    end
+
+    if saved
+      flash[:notice] = "Question was successfully updated."
+      redirect_to room_question_path(@room, @question)
+    else
+      redirect_to :back
     end
   end
 

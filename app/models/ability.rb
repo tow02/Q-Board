@@ -22,10 +22,12 @@ class Ability
         can :read, Room
         can [:create, :read], [Question, Answer, Tag]
         can :update, Question do |question|
-          question.try(:user) == user # allow user to update his/her own questions.
+          # question.try(:user) == user # allow user to update his/her own questions.
+          question.user == user
         end
         can :update, Answer do |answer|
-          answer.try(:user) == user # allow user to update his/her own answers
+          # answer.try(:user) == user # allow user to update his/her own answers
+          answer.user == user
         end
         can :vote, Answer do |answer|
           answer.user_id != user.id # Not allow user to vote for his own answer

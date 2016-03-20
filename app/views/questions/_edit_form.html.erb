@@ -1,0 +1,65 @@
+<%= form_for([@room, @question], :html => { onsubmit: "return submitForm()" }) do |f| %>
+<% if @question.errors.any? %>
+<div id="error_explanation">
+  <div class="alert alert-danger">
+    <ul>
+      <% @question.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+</div>
+<% end %>
+
+<div class="field">
+  <%= f.label :title %><br>
+  <%= f.text_field :title, class: "form-control" %>
+  <br>
+</div>
+<%= fields_for(@answer) do |fa| %>
+<div class="field">
+  <%= fa.label :content, 'answer content' %><br>
+  <%= fa.text_area :content, class: "form-control" %>
+  <br>
+</div>
+<% end %>
+
+<label>Tag</label><br>
+<select class="form-control js-example-tags" multiple="multiple">
+  <% @tags.each do |tag| %>
+  <option><%= tag.name %></option>
+  <% end %>
+</select>
+
+<%= hidden_field_tag "tags" %>
+
+<br>
+<br>
+<%= f.submit class: "btn btn-primary" %>
+
+<% end %>
+
+<% content_for :js do %>
+  <script>
+    $(".js-example-tags").select2({
+      tags: true,
+      tokenSeparators: [",", " "]
+    });
+
+    var $eventSelect = $(".js-example-tags");
+    var tags_array = [];
+
+    $eventSelect.on("change", function(e) {
+      e.preventDefault();
+      tags_array = $(".js-example-tags").val();
+      if (tags_array == null) {
+        tags_array = [];
+        $("#tags").val("");
+      } else {
+        console.log(tags_array);
+        console.log(tags_array.toString());
+        $("#tags").val(tags_array.toString());
+      }
+    });
+  </script>
+<% end %>

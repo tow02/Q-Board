@@ -31,7 +31,7 @@
             <% a.answer_tags.each do |answer_tag| %>
               <span class="badge"><%= link_to Tag.find(answer_tag[:tag_id]).name, tag_path(Tag.find(answer_tag[:tag_id])), class: "tags-text" %></span>
             <% end %>
-            <p class="pull-right">Posted at: <%= a.created_at.strftime('%v') %></p>
+            <p class="pull-right">Posted at: <%= a.updated_at.strftime('%v') %></p>
           </div>
 
         </div>
