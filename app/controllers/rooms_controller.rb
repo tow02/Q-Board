@@ -21,7 +21,7 @@ class RoomsController < ApplicationController
   # GET /rooms/1
   # GET /rooms/1.json
   def show
-    @questions = @room.questions
+    @questions = @room.questions.paginate(:page => params[:page], :per_page => 10)
     @answers = []
     @questions.each do |question|
       @answers.push(question.answers.first)

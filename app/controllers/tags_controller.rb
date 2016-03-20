@@ -33,7 +33,7 @@ class TagsController < ApplicationController
       question = Question.find(answer[:question_id])
       @questions.push(question)
     end
-
+    @questions = @questions.paginate(:page => params[:page], :per_page => 10)
     @answers = []
     @questions.each do |question|
       @answers.push(question.answers.first)

@@ -41,6 +41,8 @@
   </div>
 <% end %>
 
+<%= will_paginate @questions, renderer: BootstrapPagination::Rails %>
+
 <br>
 <%= link_to 'New Question', new_room_question_path(@room), :class => "btn btn-primary" %>
 <br><br>
