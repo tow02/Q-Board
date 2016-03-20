@@ -89,7 +89,12 @@ class AnswersController < ApplicationController
     authorize! :vote, @answer
     @answer.upvote_by current_user
     @user = User.find(@answer[:user_id])
-    @user.reputation += 1
+    @answers = Answer.where(user_id: @user.id)
+    total_reputation = 0
+    @answers.each do |answer|
+      total_reputation += answer.score
+    end
+    @user.reputation = total_reputation
     @user.save!
     redirect_to :back
   end
@@ -99,7 +104,12 @@ class AnswersController < ApplicationController
     authorize! :vote, @answer
     @answer.downvote_by current_user
     @user = User.find(@answer[:user_id])
-    @user.reputation -= 1
+    @answers = Answer.where(user_id: @user.id)
+    total_reputation = 0
+    @answers.each do |answer|
+      total_reputation += answer.score
+    end
+    @user.reputation = total_reputation
     @user.save!
     redirect_to :back
   end
