@@ -1,6 +1,14 @@
 <% provide(:title, "Tags") %>
 <h1 class="text-center"><%= link_to "Tags", tags_path %></h1> <br>
 
-<% @tags.each do |tag| %>
-    <p class="badge"><%= link_to tag.name, tag, class: "tags-text" %></p>
-<% end %>
+<div class="row text-center">
+  <% @tags.each do |tag| %>
+    <div class="col-md-4">
+      <h3><span class="label label-default"><%= link_to tag.name, tag, class: "tags-text" %></span></h3>
+    </div>
+  <% end %>
+</div>
+<br>
+<div class="text-center">
+  <%= will_paginate @tags, renderer: BootstrapPagination::Rails %>
+</div>
