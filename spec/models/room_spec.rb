@@ -22,8 +22,7 @@ RSpec.describe Room, type: :model do
   end
 
   it "successfully create room" do
-    @room1.save
-    @room2.name = "Music"
+    @room2.name = "psychology"
     expect(@room2.save).to be(true)
   end
 end

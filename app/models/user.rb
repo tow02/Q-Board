@@ -26,7 +26,9 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   before_save { self.username.downcase! }
+  before_save { self.email.downcase! }
   validates :username, presence: true, uniqueness: { case_sensitive: false }
+  validates :email, presence: true, uniqueness: { case_sensitive: false }
   has_many :user_roles
   has_many :questions
   # has_many :comments

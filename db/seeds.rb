@@ -23,6 +23,7 @@ end
 
 user = UserRole.create(user_id: 1, role_id: 1)
 user = UserRole.create(user_id: 1, role_id: 2)
+user = UserRole.create(user_id: 2, role_id: 2)
 
 
 math_room = Room.create(name: "Mathematics")

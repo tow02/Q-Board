@@ -12,5 +12,22 @@
 require 'rails_helper'
 
 RSpec.describe Role, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  before(:each) do
+    @role = Role.create(name: "Member", description: "a"*50)
+  end
+
+  it "role should have name" do
+    @role.name = ""
+    expect(@role.save).to be(false)
+  end
+
+  it "role should have description" do
+    @role.description = ""
+    expect(@role.save).to be(false)
+  end
+
+  it "create role successfully" do
+    expect(@role.save).to be(true)
+  end
+
 end

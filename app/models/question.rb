@@ -17,6 +17,6 @@ class Question < ActiveRecord::Base
 
   validates :room_id, presence: true
   validates :user_id, presence: true
-  validates :title, presence: true, length: { maximum: 150 }
+  validates :title, presence: true, length: { maximum: 200 }
   # validates_uniqueness_of :user_id, :scope => :room_id
 end

@@ -23,11 +23,11 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   before(:each) do
-    @user1 = User.new(username: "tow02",
+    @user1 = User.create(username: "tow02",
                       email: "user1@gmail.com",
                       password: "12345678",
                       password_confirmation: "12345678")
-    @user2 = User.new(username: "TOw02",
+    @user2 = User.create(username: "user2",
                       email: "user2@gmail.com",
                       password: "12345678",
                       password_confirmation: "12345678")
@@ -61,11 +61,20 @@ RSpec.describe User, type: :model do
     expect(@user1.save).to be(false)
   end
 
-  it "sign up should be valid" do
-    @user1.username = "user1"
-    expect(@user1.save).to be(true)
-    @user2.username = "user2"
-    expect(@user2.save).to be(true)
+  it "email should be unique" do
+    new_user = User.create(username: "111",
+                            email: "User1@gmail.com",
+                            password: "12345678",
+                            password_confirmation: "12345678")
+    expect(new_user.save).to be(false)
+  end
+
+  it "sign up valid with email" do
+    new_user = User.create(username: "john",
+                            email: "user4@gmail.com",
+                            password: "12345678",
+                            password_confirmation: "12345678")
+    expect(new_user.save).to be(true)
   end
 
 end

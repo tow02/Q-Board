@@ -14,18 +14,27 @@ require 'rails_helper'
 RSpec.describe UserRole, type: :model do
 
   before(:each) do
-    @user1_role1 = UserRole.new(user_id: 1, role_id: 1)
-    @user1_role_2 = UserRole.new(user_id: 1, role_id: 1)
+    @user1 = User.first
+    @user2 = User.second
+    @user3 = User.third
+    @admin_role = Role.first
+    @moderator_role = Role.second
+    @member_role = Role.third
+    @user1_role_1 = UserRole.where(user_id: @user1.id, role_id: @admin_role.id).first
+    @user2_role_2 = UserRole.where(user_id: @user2.id, role_id: @moderator_role.id).first
+    @user3_role_3 = UserRole.where(user_id: @user3.id, role_id: @member_role.id).first
   end
 
-  it "user_id and role_id should be unique together" do
-    @user1_role1.save
-    expect(@user1_role_2.save).to be(false)
+  it "Retrieved user should be admin" do
+    expect(@user1_role_1.admin?).to be(true)
   end
 
-  it "create user's role successfully" do
-    @user1_role1.save
-    @user1_role_2.role_id = 2
-    expect(@user1_role_2.save).to be(true)
+  it "Retrieved user should be moderator" do
+    expect(@user2_role_2.moderator?).to be(true)
   end
+
+  it "Retrieved user should be moderator" do
+    expect(@user3_role_3.member?).to be(true)
+  end
+
 end

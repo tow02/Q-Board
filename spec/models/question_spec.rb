@@ -14,8 +14,13 @@ require 'rails_helper'
 
 RSpec.describe Question, type: :model do
   before(:each) do
+    @user1 = User.first
+    @user2 = User.second
+    @user3 = User.third
+
+    @room1 = Room.first
+
     @q1 = Question.new(title: "a"*50)
-    @q2 = Question.new(title: "a"*50)
   end
 
   it "A question must belongs to a room" do
@@ -23,44 +28,23 @@ RSpec.describe Question, type: :model do
   end
 
   it "A question must have the owner" do
-    @q1.room_id = 1
+    @q1.room_id = @room1
     expect(@q1.save).to be(false)
   end
 
-  # it "room_id and user_id must be unique together" do
-  #   @q1.room_id = 1
-  #   @q1.user_id = 1
-  #   @q1.save
-  #
-  #   @q2.room_id = 1
-  #   @q2.user_id = 1
-  #
-  #   expect(@q2.save).to be(false)
-  # end
-
   it "A question must have title" do
-    @q1.room_id = 1
-    @q1.user_id = 1
-    @q1.title = ""
-    expect(@q1.save).to be(false)
+    @question = Question.create(user_id: @user1.id, room_id: @room1.id)
+    expect(@question.save).to be(false)
   end
 
   it "A question must have maximum length of title" do
-    @q1.title = "a"*151
-    @q1.room_id = 1
-    @q1.user_id = 1
-    expect(@q1.save).to be(false)
+    @question = Question.create(user_id: @user3.id, room_id: @room1.id, title: "a"*201)
+    expect(@question.save).to be(false)
   end
 
   it "create question successfully" do
-    @q1.room_id = 1
-    @q1.user_id = 1
-    @q1.save
-
-    @q2.room_id = 1
-    @q2.user_id = 2
-
-    expect(@q2.save).to be(true)
+    @question = Question.create(user_id: @user2.id, room_id: @room1.id, title: "b"*150)
+    expect(@question.save).to be(true)
   end
 
 end

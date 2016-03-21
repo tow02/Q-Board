@@ -16,31 +16,33 @@ require 'rails_helper'
 
 RSpec.describe Answer, type: :model do
   before(:each) do
-    @answer1 = Answer.new
-    @answer1.content = "a"*50
+    @user = User.first
+    @room = Room.first
+    @question = Question.create(title: "a"*50, user_id: @user.id, room_id: @room.id)
+    @answer = Answer.new(content: "a"*50)
   end
 
   it "answer should belong to a question" do
-    @answer1.user_id = 1
-    expect(@answer1.save).to be(false)
+    @question.user_id = @question.user_id
+    expect(@answer.save).to be(false)
   end
 
   it "answer should have its owner" do
-    @answer1.question_id = 1
-    expect(@answer1.save).to be(false)
+    @answer.question_id = @question.id
+    expect(@answer.save).to be(false)
   end
 
   it "answer should have content" do
-    @answer1.question_id = 1
-    @answer1.user_id = 1
-    @answer1.content = ""
-    expect(@answer1.save).to be(false)
+    @answer.question_id = @question.id
+    @answer.user_id = @user.id
+    @answer.content = ""
+    expect(@answer.save).to be(false)
   end
 
   it "create answer successfully" do
-    @answer1.question_id = 1
-    @answer1.user_id = 1
-    expect(@answer1.save).to be(true)
+    @answer.question_id = @question.id
+    @answer.user_id = @user.id
+    expect(@answer.save).to be(true)
   end
 
 end
