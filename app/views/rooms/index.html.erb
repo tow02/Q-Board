@@ -6,10 +6,10 @@
         <div class="panel-body">
           <h3><%= link_to room.name, room %></h3>
           <% if can? :update, room %>
-          <span><%= link_to 'Edit', edit_room_path(room), class: "btn btn-warning" %></span>
+          <span><%= link_to 'Edit Room', edit_room_path(room), class: "btn btn-warning" %></span>
           <% end %>
           <% if can? :destroy, room %>
-          <span><%= link_to 'Destroy', room, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %></span>
+          <span><%= link_to 'Delete Room', room, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %></span>
           <% end %>
         </div>
       </div>

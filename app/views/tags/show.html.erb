@@ -39,12 +39,3 @@
 <% end %>
 
 <%= will_paginate @questions, renderer: BootstrapPagination::Rails %>
-
-<br>
-<% if can? :update, @tag %>
-  <%= link_to 'Edit Tag', edit_tag_path(@tag), :class => "btn btn-warning" %>
-<% end %>
-
-<% if can? :destroy, @tag %>
-  <%= link_to 'Delete Tag', tag_path(@tag), method: :delete, :class => "btn btn-danger" %>
-<% end %>

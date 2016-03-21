@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
-  resources :tags
-  # resources :answers
+  resources :tags, only: [:index, :create, :edit, :show, :update, :destroy]
 
   resources :rooms do
     resources :questions, only: [:show, :new, :edit, :create, :update, :destroy]
