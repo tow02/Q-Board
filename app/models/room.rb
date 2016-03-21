@@ -11,5 +11,6 @@
 class Room < ActiveRecord::Base
   has_many :questions
 
-  validates :name, presence: true
+  before_save { self.name.downcase! }
+  validates :name, presence: true, uniqueness: { case_sensitive: false }
 end

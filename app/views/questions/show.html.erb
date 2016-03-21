@@ -1,6 +1,6 @@
 <% provide(:title, @question.title) %>
 <h3>
-  <%= link_to @question.room.name, room_path(@question.room) %>
+  <%= link_to @question.room.name.capitalize, room_path(@question.room) %>
 </h3>
 <br>
 

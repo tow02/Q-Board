@@ -11,5 +11,19 @@
 require 'rails_helper'
 
 RSpec.describe Room, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  before(:each) do
+    @room1 = Room.new(name: "Art")
+    @room2 = Room.new(name: "art")
+  end
+
+  it "Room name should be unique" do
+    @room1.save
+    expect(@room2.save).to be(false)
+  end
+
+  it "successfully create room" do
+    @room1.save
+    @room2.name = "Music"
+    expect(@room2.save).to be(true)
+  end
 end

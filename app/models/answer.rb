@@ -16,8 +16,8 @@ class Answer < ActiveRecord::Base
   belongs_to :question
   belongs_to :user
   # has_many :comments
-  has_many :images
-  has_many :votes
+  # has_many :images
+  # has_many :votes
   has_many :answer_tags
 
   validates :question_id, presence: true

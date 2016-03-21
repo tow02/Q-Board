@@ -11,5 +11,5 @@
 class Tag < ActiveRecord::Base
   has_many :answer_tags
 
-  validates :name, uniqueness: true
+  validates :name, presence: true, uniqueness: true
 end

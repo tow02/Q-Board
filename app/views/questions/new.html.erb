@@ -1,7 +1,7 @@
 <% provide(:title, "New question") %>
-<h1><%= link_to @room.name, room_path(@room) %></h1>
+<h3><%= link_to @room.name.capitalize, room_path(@room) %></h3>
 
-<h1>New Question</h1>
+<h3>New Question</h3>
 
 <%= render 'form' %>
 
